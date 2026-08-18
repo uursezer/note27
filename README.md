@@ -1,24 +1,31 @@
 # US Lightroom Notları
 
-Uğur Sezer’in FigJam’deki 123 Lightroom notundan üretilmiş, tekrarları ayıklanmış ve Notion esintili kişisel bilgi tabanı.
+Uğur Sezer’in FigJam’deki 123 Lightroom notundan üretilmiş; tekrarları ayıklanmış, 14 ana bölüme ayrılmış ve Notion esintili bir statik bilgi tabanı.
 
-## Canlı site
+## Özellikler
 
-GitHub Pages dağıtımı tamamlandığında proje adresi:
-
-**https://uursezer.github.io/note27/**
-
-## İçerik
-
-- 123 ham nottan 14 düzenli bölüm
 - 12 adımlı Lightroom düzenleme rotası
+- 14 tekrarsız ana bölüm
 - Tam metin arama (`⌘/Ctrl + K`)
 - Açık/koyu tema
 - Okundu işaretleri ve ilerleme takibi
-- Mobil uyumlu, bağımlılıksız statik site
+- Mobil ve masaüstü uyumlu arayüz
+- Vercel veya başka bir çalışma zamanı hizmetine bağımlılık yok
 
-## Yayınlama
+## Yerel kullanım
 
-`.github/workflows/pages.yml`, `main` dalına yapılan her push sonrasında siteyi GitHub Pages’e dağıtır. Site kaynağı, GitHub dosya boyutu ve aktarım güvenilirliği için `site/part-*.b64` parçalarında sıkıştırılmış olarak tutulur; workflow bu parçaları birleştirip doğrular ve `index.html` üretir.
+Depoyu klonladıktan sonra klasörün içinde bir statik sunucu başlatın:
 
-> Repository özel olduğu için GitHub Pages kullanılabilirliği GitHub hesap planına bağlıdır. Pages yayın kaynağı repository ayarlarında **GitHub Actions** olarak etkinleştirilmelidir.
+```bash
+python3 -m http.server 8080
+```
+
+Ardından `http://localhost:8080` adresini açın.
+
+## GitHub Pages
+
+Depo GitHub Pages için hazırlanmıştır. Repository ayarlarında **Settings → Pages → Source: GitHub Actions** seçildiğinde, `main` dalına gelen her değişiklik otomatik olarak yayınlanır.
+
+Yayın adresi: **https://uursezer.github.io/note27/**
+
+Site içeriği, GitHub aktarım sınırlarına uygun olması için `payload/part-*.js` dosyalarında sıkıştırılmış halde tutulur. `index.html` tarayıcıda bu parçaları birleştirip yerel olarak açar.
