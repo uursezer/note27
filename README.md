@@ -30,4 +30,4 @@ Yayın adresi: **https://uursezer.github.io/note27/**
 
 Site içeriği `payload/part-*.js` dosyalarında sıkıştırılmış halde tutulur. `index.html` tarayıcıda bu parçaları birleştirip yerel olarak açar.
 
-> GitHub Pages dağıtımı için son tetikleme: 18 Ağustos 2026.
+> GitHub Pages dağıtımı için son tetikleme: 18 Ağustos 2026, 13:10 UTC.
