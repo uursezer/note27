@@ -24,8 +24,8 @@ Ardından `http://localhost:8080` adresini açın.
 
 ## GitHub Pages
 
-Depo GitHub Pages için hazırlanmıştır. Repository ayarlarında **Settings → Pages → Source: GitHub Actions** seçildiğinde, `main` dalına gelen her değişiklik otomatik olarak yayınlanır.
+Repository public durumdadır ve GitHub Pages için hazırlanmıştır. Dağıtım `.github/workflows/pages.yml` iş akışıyla yapılır.
 
 Yayın adresi: **https://uursezer.github.io/note27/**
 
-Site içeriği, GitHub aktarım sınırlarına uygun olması için `payload/part-*.js` dosyalarında sıkıştırılmış halde tutulur. `index.html` tarayıcıda bu parçaları birleştirip yerel olarak açar.
+Site içeriği `payload/part-*.js` dosyalarında sıkıştırılmış halde tutulur. `index.html` tarayıcıda bu parçaları birleştirip yerel olarak açar.
