@@ -1,0 +1,25 @@
+name: Temporary Vercel public-access check
+
+on:
+  push:
+    paths:
+      - .github/workflows/check-vercel-public.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify unauthenticated public response
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://dv-mnkrw96by-dv-os1.vercel.app/"
+          STATUS="$(curl --silent --show-error --location --max-time 30 --output /tmp/site.html --write-out '%{http_code}' "$URL")"
+          echo "HTTP status: $STATUS"
+          test "$STATUS" = "200"
+          grep --quiet '<title>US Lightroom Notları</title>' /tmp/site.html
+          echo "Public Vercel access verified."
