@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fbfbfa">
+  <meta name="description" content="Uğur Sezer'in düzenlenmiş Lightroom bilgi tabanı.">
+  <title>US Lightroom Notları</title>
+  <style>
+    :root{color-scheme:light dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#fbfbfa;color:#37352f;font:15px/1.55 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.card{width:min(430px,calc(100vw - 40px));padding:30px;border:1px solid rgba(55,53,47,.12);border-radius:16px;background:#fff;box-shadow:0 18px 55px rgba(15,15,15,.08)}.brand{font-size:19px;font-weight:750}.note{margin:10px 0 0;color:#787774;font-size:13px}.bar{height:4px;margin-top:19px;overflow:hidden;border-radius:999px;background:#ececea}.bar:after{content:"";display:block;width:42%;height:100%;border-radius:inherit;background:#37352f;animation:load 1.05s ease-in-out infinite}@keyframes load{0%{transform:translateX(-115%)}100%{transform:translateX(270%)}}.error{color:#9b2c2c}@media(prefers-color-scheme:dark){body{background:#191919;color:#ebebea}.card{background:#202020;border-color:rgba(255,255,255,.09)}.bar{background:#303030}.bar:after{background:#ebebea}.note{color:#aaa9a5}.error{color:#ffb4b4}}
+  </style>
+</head>
+<body>
+  <main class="card" role="status" aria-live="polite">
+    <div class="brand">US Lightroom Notları</div>
+    <div class="bar" aria-hidden="true"></div>
+    <p class="note" id="status">Bilgi tabanı yükleniyor…</p>
+  </main>
+  <script>
+    (async()=>{
+      const status=document.getElementById('status');
+      const bases=['https://raw.githubusercontent.com/uursezer/note27/main/payload/','https://cdn.jsdelivr.net/gh/uursezer/note27@main/payload/'];
+      const names=['part-1.js','part-2.js','part-3.js','part-4.js'];
+      async function loadParts(){let lastError;for(const base of bases){try{const responses=await Promise.all(names.map(name=>fetch(base+name,{cache:'no-store'})));if(responses.some(r=>!r.ok))throw new Error('İçerik dosyaları alınamadı');return Promise.all(responses.map(r=>r.text()))}catch(error){lastError=error}}throw lastError||new Error('İçerik yüklenemedi')}
+      try{
+        const parts=await loadParts();for(const code of parts)(0,eval)(code);
+        const encoded=window.__US_PAYLOAD||'';if(!encoded)throw new Error('Site paketi boş');
+        const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0));let html;
+        if('DecompressionStream'in window){const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));html=await new Response(stream).text()}
+        else{await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js';s.onload=resolve;s.onerror=reject;document.head.appendChild(s)});html=new TextDecoder().decode(window.pako.ungzip(bytes))}
+        window.__US_PAYLOAD=null;document.open();document.write(html);document.close();
+      }catch(error){console.error(error);status.className='note error';status.textContent='Site yüklenemedi. Sayfayı yenileyin: '+error.message}
+    })();
+  </script>
+</body>
+</html>
