@@ -4,7 +4,9 @@ Uğur Sezer’in FigJam’deki 123 Lightroom notundan üretilmiş; tekrarları a
 
 ## Canlı site
 
-**Vercel:** https://us-lightroom-notlari-public-us-team2.vercel.app
+**Vercel:** https://us-lightroom-arkadas-dv-os1.vercel.app/
+
+**GitHub Pages:** https://uursezer.github.io/note27/
 
 ## Özellikler
 
@@ -25,4 +27,4 @@ python3 -m http.server 8080
 
 Ardından `http://localhost:8080` adresini açın.
 
-Site içeriği `payload/part-*.js` dosyalarında sıkıştırılmış halde tutulur. `index.html` tarayıcıda bu parçaları birleştirip yerel olarak açar.
+Site içeriği `payload/part-*.js` dosyalarında sıkıştırılmış halde tutulur. Vercel sürümü public GitHub deposundaki içerik parçalarını tarayıcıda yükler.
