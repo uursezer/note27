@@ -2,11 +2,13 @@
 
 Uğur Sezer’in FigJam’deki 123 Lightroom notundan üretilmiş; tekrarları ayıklanmış, 14 ana bölüme ayrılmış ve Notion esintili bir statik bilgi tabanı.
 
-## Canlı site
+## Yayın adresleri
+
+**GitHub Pages:** https://uursezer.github.io/note27/
 
 **Vercel:** https://us-lightroom-arkadas-dv-os1.vercel.app/
 
-**GitHub Pages:** https://uursezer.github.io/note27/
+> Vercel adresinin dışarıdan açılması için proje ayarlarında Vercel Authentication kapatılmalıdır.
 
 ## Özellikler
 
@@ -27,4 +29,4 @@ python3 -m http.server 8080
 
 Ardından `http://localhost:8080` adresini açın.
 
-Site içeriği `payload/part-*.js` dosyalarında sıkıştırılmış halde tutulur. Vercel sürümü public GitHub deposundaki içerik parçalarını tarayıcıda yükler.
+Site içeriği `payload/part-*.js` dosyalarında sıkıştırılmış halde tutulur.
