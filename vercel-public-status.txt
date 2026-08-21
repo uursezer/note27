@@ -1,0 +1,5 @@
+FAILED
+url=https://us-lightroom-arkadas-dv-os1.vercel.app/
+http_code=200
+curl_exit=0
+checked_at=2026-08-21T17:53:43Z
