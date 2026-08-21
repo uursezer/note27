@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Wait briefly for deployment
-        run: sleep 25
+        run: sleep 20
 
       - name: Test anonymous access
         shell: bash
@@ -39,6 +39,7 @@ jobs:
             echo "curl_exit=$CURL_EXIT"
             echo "checked_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           } > vercel-public-status.txt
+          head -c 2500 page.html > vercel-page-head.txt
           cat vercel-public-status.txt
 
       - name: Publish verification result
@@ -46,6 +47,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add vercel-public-status.txt
-          git commit -m "Record Vercel public access check" || exit 0
+          git add vercel-public-status.txt vercel-page-head.txt
+          git commit -m "Record detailed Vercel public access check" || exit 0
           git push
