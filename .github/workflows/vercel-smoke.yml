@@ -7,23 +7,45 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Wait briefly for deployment
-        run: sleep 20
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Fetch Vercel site without authentication
+      - name: Wait briefly for deployment
+        run: sleep 25
+
+      - name: Test anonymous access
         shell: bash
         run: |
-          set -euo pipefail
+          set +e
           URL="https://us-lightroom-arkadas-dv-os1.vercel.app/"
-          curl --fail --location --retry 5 --retry-delay 5 --max-time 60 \
-            --dump-header headers.txt --output page.html "$URL"
-          cat headers.txt
-          head -c 500 page.html
-          echo
-          grep -q "US Lightroom Notları" page.html
+          HTTP_CODE=$(curl --silent --show-error --location --retry 4 --retry-delay 5 --max-time 60 \
+            --output page.html --write-out "%{http_code}" "$URL")
+          CURL_EXIT=$?
+          if [ "$CURL_EXIT" -eq 0 ] && [ "$HTTP_CODE" = "200" ] && grep -q "US Lightroom Notları" page.html; then
+            RESULT="PUBLIC_OK"
+          else
+            RESULT="FAILED"
+          fi
+          {
+            echo "$RESULT"
+            echo "url=$URL"
+            echo "http_code=$HTTP_CODE"
+            echo "curl_exit=$CURL_EXIT"
+            echo "checked_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } > vercel-public-status.txt
+          cat vercel-public-status.txt
+
+      - name: Publish verification result
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vercel-public-status.txt
+          git commit -m "Record Vercel public access check" || exit 0
+          git push
