@@ -1,0 +1,31 @@
+name: Check Vercel public access
+
+on:
+  push:
+    paths:
+      - .github/workflows/check-vercel.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check public URL
+        shell: bash
+        run: |
+          set -uo pipefail
+          URL="https://us-lightroom-notlari-public-us-team2.vercel.app"
+          STATUS=$(curl --location --silent --show-error --output body.html --write-out "%{http_code}" "$URL")
+          echo "HTTP_STATUS=$STATUS"
+          echo "--- RESPONSE HEAD ---"
+          head -c 800 body.html || true
+          echo
+          echo "--- END RESPONSE HEAD ---"
+          if [ "$STATUS" != "200" ]; then
+            echo "The Vercel URL is not publicly accessible."
+            exit 1
+          fi
+          grep -q "US Lightroom Notları" body.html
